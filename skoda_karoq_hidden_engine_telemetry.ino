@@ -108,7 +108,6 @@ void loop() {
 
   float oilTemp = getOBDValue("015C1", "41 5C", -40.0, 1.0, 1);
   float coolantTemp = getOBDValue("01051", "41 05", -40.0, 1.0, 1);
-  // float coolantTemp = getOBDValue("01671", "41 67", -40.0, 1.0, 1);
   float totalKm = getOBDValue("01A61", "41 A6", 0.0, 0.1, 4);
   float speed = getOBDValue("010D1", "41 0D", 0.0, 1.0, 1);
 
@@ -285,5 +284,6 @@ void updateDisplay(int oil, int coolant, int speed, float volt, float km) {
   }
 
 }
+
 
 
