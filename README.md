@@ -13,6 +13,13 @@ Seznam ověřených motorizací, na kterých byl monitor úspěšně testován. 
 > [!TIP]
 > Pokud jste monitor vyzkoušeli na jiném motoru, dejte mi prosím vědět (např. přes Issues), abych mohl seznam rozšířit!
 
+<p align="center">
+  <ins><b>Ukázka ovládání a webserveru</b></ins><br>
+  <a href="https://www.youtube.com/watch?v=dRTjhbWR-sU">
+    <img src="https://img.youtube.com/vi/dRTjhbWR-sU/maxresdefault.jpg" width="600">
+  </a>
+</p>
+
 ---
 ### 🎥 Ukázka systému v praxi
 [![Ukázka připojení monitoru](https://img.youtube.com/vi/KxJALGIXn9g/0.jpg)](https://www.youtube.com/watch?v=KxJALGIXn9g)
