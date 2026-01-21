@@ -22,12 +22,12 @@ Výchozí nastavení v **settings.h**
 - BACKLIGHT_BRIGHTNESS = BRIGHTNESS_LOW; – jas spořiče displeje (25 %)
 
 
-### **Displej** - funkční přehled HET systému
+## **Displej** - funkční přehled HET systému
 
 Možnost zobrazit následující položky:
 
 
-- **1. Teplota motorového oleje (OLEJ)**
+### **1. Teplota motorového oleje (OLEJ)**
 
 **Logika barev:**
 
@@ -38,7 +38,7 @@ Možnost zobrazit následující položky:
 * Alarm (Červená na bílé):  (Kritické přehřátí, doporučeno zvolnit).
 
 
-- **2. Teplota chladicí kapaliny (KAPALINA)**
+### **2. Teplota chladicí kapaliny (KAPALINA)**
 
 > Ukazuje stav chladicího okruhu.
 
@@ -50,7 +50,7 @@ Možnost zobrazit následující položky:
 * Červená:  (Možné přetížení chladicího systému).
 
 
-- **3. Reálná rychlost (RYCHLOST)**
+### **3. Reálná rychlost (RYCHLOST)**
 
 > Přesnější než tachometr (neřeší odchylku výrobce). Klíčový parametr s implementovanou chyytrou hysterezí (2 km/h), aby barvy neproblikávaly.
 
@@ -63,7 +63,7 @@ Možnost zobrazit následující položky:
 – ZÓNA 134-140 (dálnice limit)
 
 
-- **4. Palubní napětí (NAPETI)**
+### **4. Palubní napětí (NAPETI)**
 
 > Napětí na OBD zásuvce. Důležité kvůli inteligentnímu dobíjení (rekuperaci).
 
@@ -74,13 +74,13 @@ Možnost zobrazit následující položky:
 * Zlatá (Gold):  - (Rekuperace – auto intenzivně brzdí motorem a dobíjí baterii "zadarmo").
 
 
-- **5. Ujetá vzdálenost (UJETO)**
+### **5. Ujetá vzdálenost (UJETO)**
 
 Zobrazuje se s přesností na jedno desetinné místo (např. 12469.5 km).
 
 ---
 
-## Chytré funkce systému
+### Chytré funkce systému
 
 * Hystereze: Pokud jedeš přesně na hranici (např. 53 km/h), barva se nezmění při každém zakolísání o 1 km/h.
 * Smoothing: Data z OBD jsou čtena v cyklech, které nezpomalují procesor ESP32.
