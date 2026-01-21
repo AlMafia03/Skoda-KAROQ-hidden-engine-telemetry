@@ -24,8 +24,8 @@ void updateDisplay(float oil, float coolant, float volt, float km);
 float getOBDValue(String command, String header, float offset, float multiplier, int bytes);
 void setBrightness(int level);
 
-int errorCount = 0; // Globální počítadlo chyb 
-const int MAX_ERRORS = 10; // Po 10 neúspěšných pokusech (cca 20-30s) restart
+int errorCount = 0; 
+const int MAX_ERRORS = 10; 
 
 void setup() {
   Serial.begin(115200);
@@ -296,4 +296,5 @@ void updateDisplay(int oil, int coolant, int speed, float volt, float km) {
   }
 
 }
+
 
