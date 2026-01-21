@@ -4,8 +4,6 @@
 // Comment the line #include <User_Setup.h>
 // Uncomment the ine #include <User_Setups/Setup25_TTGO_T_Display.h>
 // Board: esp32 ver. 2.0.17 (ESP32 Dev Module), Library: ELMDuino ver. 3.3.0, TFT_eSPI ver. 2.5.43
-// https://www.webfx.com/web-design/color-picker/color-chart/
-// RGB565 http://www.rinkydinkelectronics.com/calc_rgb565.php
 
 #include <TFT_eSPI.h>
 #include <SPI.h>
@@ -296,5 +294,6 @@ void updateDisplay(int oil, int coolant, int speed, float volt, float km) {
   }
 
 }
+
 
 
