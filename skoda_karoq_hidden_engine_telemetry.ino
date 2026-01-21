@@ -16,11 +16,9 @@
 BluetoothSerial SerialBT;
 TFT_eSPI tft = TFT_eSPI(135, 240);
 
-// Proměnné pro řízení
 bool isScreensaverOn = false; 
 unsigned long lastActivity = 0;
 
-// --- Deklarace funkcí ---
 void setupELM327();
 void updateDisplay(float oil, float coolant, float volt, float km);
 float getOBDValue(String command, String header, float offset, float multiplier, int bytes);
@@ -47,7 +45,6 @@ void setup() {
   tft.fillScreen(TFT_BLACK);
   tft.setTextDatum(MC_DATUM);
 
-  // --- SMYČKA PRO OPAKOVANÉ PŘIPOJENÍ ---
   bool connected = false;
   int pokus = 1;
 
@@ -114,15 +111,12 @@ void loop() {
   }
   float obdVoltage = vResp.toFloat();
 
-  // --- 2. SBĚR DAT ---
   float oilTemp = getOBDValue("015C1", "41 5C", -40.0, 1.0, 1);
   float coolantTemp = getOBDValue("01051", "41 05", -40.0, 1.0, 1);
   // float coolantTemp = getOBDValue("01671", "41 67", -40.0, 1.0, 1);
   float totalKm = getOBDValue("01A61", "41 A6", 0.0, 0.1, 4);
   float speed = getOBDValue("010D1", "41 0D", 0.0, 1.0, 1);
 
-  // --- 3. KONTROLA CHYB A RESTARTU ---
-  // Pokud jsou teploty -1 (nebo -50) nebo napětí 0, znamená to výpadek dat
   if (oilTemp < -45.0 || coolantTemp < -45.0 || obdVoltage < 5.0) {
     errorCount++;
     Serial.println("Chyba dat! Pocet: " + String(errorCount));
@@ -142,7 +136,6 @@ void loop() {
     ESP.restart(); // Tvrdý restart celého ESP32
   }
 
-  // --- 4. AKTUALIZACE DISPLEJE ---
   updateDisplay(oilTemp, coolantTemp, speed, obdVoltage, totalKm);
   
   delay(1000); 
@@ -151,14 +144,13 @@ void loop() {
 void setupELM327() {
   Serial.println("Konfigurace ELM327...");
   
-  // Vyčištění vyrovnávací paměti Bluetooth (smaže staré odpovědi)
   while(SerialBT.available()) SerialBT.read();
   
-  SerialBT.print("ATZ\r");     delay(500); // Softwarový reset adaptéru (vymaže předchozí nastavení)
-  SerialBT.print("ATE0\r");    delay(50);  // Vypnutí echa (adaptér nebude posílat tvůj příkaz zpět k tobě)
-  SerialBT.print("ATH0\r");    delay(50);  // Vypnutí CAN hlaviček (zkrátí odpověď na čistá data)
-  SerialBT.print("ATSP6\r");   delay(50);  // Nastavení protokolu na ISO 15765-4 CAN (11 bit ID, 500 kbit/s)
-  SerialBT.print("ATSH7E0\r"); delay(50);  // Nastavení hlavičky na 7E0 (komunikace přímo s jednotkou motoru)
+  SerialBT.print("ATZ\r");     delay(500); 
+  SerialBT.print("ATE0\r");    delay(50); 
+  SerialBT.print("ATH0\r");    delay(50); 
+  SerialBT.print("ATSP6\r");   delay(50); 
+  SerialBT.print("ATSH7E0\r"); delay(50); 
   
   // Prvotní dotaz na podporované PIDy (probudí komunikaci s ECU motoru)
   SerialBT.print("01001\r");
@@ -170,14 +162,13 @@ void setupELM327() {
 
 
 float getOBDValue(String command, String header, float offset, float multiplier, int bytes) {
-  while(SerialBT.available()) SerialBT.read(); // Vyčistit buffer
+  while(SerialBT.available()) SerialBT.read(); 
   SerialBT.print(command + "\r");
 
   String resp = "";
   unsigned long startWait = millis();
   bool timeout = false;
 
-  // Čekej na odpověď max 1 sekundu, nebo dokud nepřijde '>'
   while (resp.indexOf(">") == -1) {
     if (millis() - startWait > 1000) { 
       timeout = true;
@@ -212,13 +203,13 @@ void updateDisplay(int oil, int coolant, int speed, float volt, float km) {
 
   tft.setTextDatum(TR_DATUM);
   int xPos = 238; 
-  int standardPdd = 100;   // padding, mazani popisku vpravo
+  int standardPdd = 100;   
 
   // ===== 1. ŘÁDEK: OLEJ =====
   tft.setTextPadding(standardPdd); 
   if (oil > -50) {
     if (oil > 120) {
-      tft.setTextColor(TFT_RED, TFT_WHITE); // ALERT: Červená na bílé
+      tft.setTextColor(TFT_RED, TFT_WHITE); 
     } else if (oil <= 40) {
       tft.setTextColor(TFT_CAPRI, TFT_BLACK);
     } else if (oil <= 80) {
@@ -305,3 +296,4 @@ void updateDisplay(int oil, int coolant, int speed, float volt, float km) {
   }
 
 }
+
