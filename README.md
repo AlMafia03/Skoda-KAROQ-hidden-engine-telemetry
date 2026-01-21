@@ -22,9 +22,10 @@ Výchozí nastavení v **settings.h**
 - BACKLIGHT_BRIGHTNESS = BRIGHTNESS_LOW; – jas spořiče displeje (25 %)
 
 
-### **Displej** - Funkční přehled HET systému
+### **Displej** - funkční přehled HET systému
 
 Možnost zobrazit následující položky:
+
 
 - **1. Teplota motorového oleje (OLEJ)**
 
@@ -56,7 +57,6 @@ Možnost zobrazit následující položky:
 **Logika barev (Zóny):**
 
 * Šedá: – (Normální rychlost).
-  
 * Oranžová: 
 – ZÓNA 54-60 (obec limit)
 – ZÓNA 94-100 (okreska limit)
