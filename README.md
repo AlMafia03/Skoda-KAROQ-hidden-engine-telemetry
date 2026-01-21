@@ -1,89 +1,77 @@
-# **Monitor telemetrie motoru**
-Monitor k zobrazování skrytých údajů motoru.
+# 🏎️ Monitor telemetrie motoru (OBD II)
+
+Monitor pro zobrazování skrytých údajů motoru v reálném čase pomocí ESP32 a OBD II diagnostiky. Projekt je zaměřen na přehlednost pro řidiče (periferní vidění) a sledování inteligentního dobíjení.
 
 [![Ukázka ovládání a webserveru](https://img.youtube.com/vi/dRTjhbWR-sU/0.jpg)](https://www.youtube.com/watch?v=dRTjhbWR-sU)
 
+---
 
-## **Hardware:**
+## 🛠️ Hardware
+Pro zprovoznění systému budete potřebovat následující komponenty:
 
-Diagnostika Vgate iCar pro OBD II s bluetooth: https://www.diags.cz/diagnostiky-pro-android-ios-pc/diagnostika-vgate-icar-pro-obd-ii-s-bluetooth-pro-android--pc/
-LilyGO TTGO T-Displej ESP32 1.14 TFT: https://www.laskakit.cz/lilygo-ttgo-t-displej-esp32-1-14-tft-wifi-modul/
-
-## **Software:**
-
-> [!NOTE]
-Při programování je potřeba nainstalovat správné verze desek a knihoven uvedených v poznámce na začátku kódu, jinak se monitor nepřipojí!
-
-> Board: esp32 ver. 2.0.17 (ESP32 Dev Module), Library: ELMDuino ver. 3.3.0, TFT_eSPI ver. 2.5.43
-
-Výchozí nastavení v **settings.h**
-
-- BT_NAME = "V-LINK"; - název BT modulu Vgate, který je vidět při hledání BT zařízení v telefonu
-- BACKLIGHT_BRIGHTNESS = BRIGHTNESS_LOW; – jas spořiče displeje (25 %)
+* **Diagnostika:** [Vgate iCar Pro OBD II Bluetooth](https://www.diags.cz/diagnostiky-pro-android-ios-pc/diagnostika-vgate-icar-pro-obd-ii-s-bluetooth-pro-android--pc/) (nebo jiný kompatibilní ELM327 BT modul).
+* **Mikrokontrolér:** [LilyGO TTGO T-Display ESP32 1.14 TFT](https://www.laskakit.cz/lilygo-ttgo-t-displej-esp32-1-14-tft-wifi-modul/).
 
 ---
 
-## **Displej** - funkční přehled HET systému
+## 💻 Software & Konfigurace
 
-Možnost zobrazit následující položky:
+> [!CAUTION]
+> **Důležité upozornění:** Pro správnou funkčnost a připojení k OBD je nutné v Arduino IDE použít konkrétní verze knihoven a desek:
+> - **Board:** `esp32` ver. 2.0.17 (výběr: ESP32 Dev Module)
+> - **Knihovna ELMDuino:** ver. 3.3.0
+> - **Knihovna TFT_eSPI:** ver. 2.5.43
 
-
-### **1. Teplota motorového oleje (OLEJ)**
-
-**Logika barev:**
-
-* Modrá:  (Studený motor, nepoužívat plný výkon).
-* Oranžová: – (Zahřívání, motor se blíží k provozní teplotě).
-* Zelená (Lime): – (Ideální stav, motor je plně prohřátý).
-* Červená: – (Zvýšená zátěž, např. dálnice nebo táhlý kopec).
-* Alarm (Červená na bílé):  (Kritické přehřátí, doporučeno zvolnit).
-
-
-### **2. Teplota chladicí kapaliny (KAPALINA)**
-
-> Ukazuje stav chladicího okruhu.
-
-**Logika barev:**
-
-* Modrá:  (Studená voda).
-* Oranžová: – (Zahřívání).
-* Zelená: – (Provozní teplota).
-* Červená:  (Možné přetížení chladicího systému).
-
-
-### **3. Reálná rychlost (RYCHLOST)**
-
-> Přesnější než tachometr (neřeší odchylku výrobce). Klíčový parametr s implementovanou chyytrou hysterezí (2 km/h), aby barvy neproblikávaly.
-
-**Logika barev (Zóny):**
-
-* Šedá: – (Normální rychlost).
-* Oranžová: 
-– ZÓNA 54-60 (obec limit)
-– ZÓNA 94-100 (okreska limit)
-– ZÓNA 134-140 (dálnice limit)
-
-
-### **4. Palubní napětí (NAPETI)**
-
-> Napětí na OBD zásuvce. Důležité kvůli inteligentnímu dobíjení (rekuperaci).
-
-**Logika barev:**
-
-* Červená:  – (Baterie se vybíjí, motor vypnutý nebo slabý alternátor).
-* Zelená (Lime): – (Standardní dobíjení/provoz).
-* Zlatá (Gold):  - (Rekuperace – auto intenzivně brzdí motorem a dobíjí baterii "zadarmo").
-
-
-### **5. Ujetá vzdálenost (UJETO)**
-
-Zobrazuje se s přesností na jedno desetinné místo (např. 12469.5 km).
+### Výchozí nastavení (`settings.h`)
+V konfiguračním souboru lze upravit tyto parametry:
+- `BT_NAME = "V-LINK";` – Název BT modulu, ke kterému se ESP32 připojuje.
+- `BACKLIGHT_BRIGHTNESS = BRIGHTNESS_LOW;` – Jas spořiče displeje (25 %).
 
 ---
 
-### Chytré funkce systému
+## 📊 Funkční přehled zobrazovaných dat
 
-* Hystereze: Pokud jedeš přesně na hranici (např. 53 km/h), barva se nezmění při každém zakolísání o 1 km/h.
-* Smoothing: Data z OBD jsou čtena v cyklech, které nezpomalují procesor ESP32.
-* Scannability: Barvy jsou zvoleny tak, aby řidič věděl "vše je OK" (zelená) nebo "pozor" (oranžová/červená) pouhým periferním viděním.
+Systém monitoruje 5 klíčových parametrů s dynamickým barvoslepostí uzpůsobeným logikou.
+
+### 1. Teplota motorového oleje (`OLEJ`)
+| Barva | Stav | Význam |
+| :--- | :--- | :--- |
+| 🟦 **Modrá** | Studený motor | Nepoužívat plný výkon |
+| 🟧 **Oranžová** | Zahřívání | Motor se blíží k provozní teplotě |
+| 🟩 **Limetková** | Ideální stav | Motor je plně prohřátý |
+| 🟥 **Červená** | Zvýšená zátěž | Např. dálnice nebo táhlé stoupání |
+| ⬜ **Alarm** | Kritický stav | Červený text na bílém pozadí - doporučeno zvolnit |
+
+### 2. Teplota chladicí kapaliny (`KAPALINA`)
+| Barva | Stav |
+| :--- | :--- |
+| 🟦 **Modrá** | Studená voda |
+| 🟧 **Oranžová** | Zahřívání |
+| 🟩 **Zelená** | Provozní teplota |
+| 🟥 **Červená** | Možné přetížení chladicího systému |
+
+### 3. Reálná rychlost (`RYCHLOST`)
+Digitální údaj přímo z řídící jednotky (přesnější než tachometr). Implementována **chytrá hystereze 2 km/h** proti problikávání barev.
+- ⬜ **Šedá:** Běžná rychlost.
+- 🟧 **Oranžová (Limity):** Signalizace pro rychlosti:
+  - 54–60 km/h (Limit obec)
+  - 94–100 km/h (Limit mimo obec)
+  - 134–140 km/h (Limit dálnice)
+
+### 4. Palubní napětí (`NAPETI`)
+Měřeno na OBD zásuvce. Klíčové pro vozy s **inteligentním dobíjením** (rekuperací).
+- 🟥 **Červená:** Baterie se vybíjí (motor vypnutý/slabý alternátor).
+- 🟩 **Limetková:** Standardní dobíjení za jízdy.
+- 🟨 **Zlatá:** Aktivní rekuperace (brzdění motorem, intenzivní dobíjení).
+
+### 5. Ujetá vzdálenost (`UJETO`)
+- Zobrazuje celkovou ujetou vzdálenost s přesností na **0.1 km**.
+
+---
+
+## 💡 Chytré funkce systému
+
+* **Hystereze:** Zabraňuje zběsilému přepínání barev při jízdě na hranici limitu (např. stabilní barva při kolísání 53-54 km/h).
+* **Smoothing (Vyhlazování):** Optimalizované čtení dat z OBD sběrnice, které nezatěžuje procesor a nezpůsobuje záseky vykreslování.
+* **Periferní scannability:** Barevné schéma je navrženo tak, aby řidič nemusel číst čísla – stačí vnímat barvu v zorném poli.
 
