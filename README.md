@@ -1,6 +1,7 @@
 # 🏎️ Monitor telemetrie motoru (OBD II)
 
 Monitor pro zobrazování skrytých údajů motoru v reálném čase pomocí ESP32 a OBD II diagnostiky. Projekt je zaměřen na přehlednost pro řidiče (periferní vidění) a sledování inteligentního dobíjení.
+**Testováno na motoru s označením DXD (MQB-evo) 2025.**
 
 [![Ukázka připojení monitoru](https://img.youtube.com/vi/dRTjhbWR-sU/0.jpg)](https://www.youtube.com/watch?v=dRTjhbWR-sU)
 
