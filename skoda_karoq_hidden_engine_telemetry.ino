@@ -116,11 +116,10 @@ void loop() {
     errorCount++;
     Serial.println("Chyba dat! Pocet: " + String(errorCount));
   } else {
-    errorCount = 0; // Data jsou v pořádku, nulujeme chyby
+    errorCount = 0; 
   }
 
-  // Pokud je 15 chyb za sebou (cca 30-40 sekund výpadku)
-  if (errorCount >= 15) {
+    if (errorCount >= 15) {
     tft.fillScreen(TFT_BLACK);
     tft.setTextColor(TFT_RED);
     tft.setTextDatum(MC_DATUM);
@@ -128,7 +127,7 @@ void loop() {
     tft.setTextColor(TFT_SKODAGREY);
     tft.drawString("Restartuji...", 120, 90, 4);
     delay(3000);
-    ESP.restart(); // Tvrdý restart celého ESP32
+    ESP.restart();
   }
 
   updateDisplay(oilTemp, coolantTemp, speed, obdVoltage, totalKm);
@@ -147,12 +146,10 @@ void setupELM327() {
   SerialBT.print("ATSP6\r");   delay(50); 
   SerialBT.print("ATSH7E0\r"); delay(50); 
   
-  // Prvotní dotaz na podporované PIDy (probudí komunikaci s ECU motoru)
-  SerialBT.print("01001\r");
+    SerialBT.print("01001\r");
   delay(500);
   
-  // Opětovné vyčištění bufferu po konfiguraci
-  while(SerialBT.available()) SerialBT.read();
+    while(SerialBT.available()) SerialBT.read();
 }
 
 
@@ -191,7 +188,7 @@ float getOBDValue(String command, String header, float offset, float multiplier,
     }
   }
   
-  return -50.0; // Jednotná chybová hodnota pro ztrátu spojení
+  return -50.0; 
 }
 
 void updateDisplay(int oil, int coolant, int speed, float volt, float km) {
@@ -264,8 +261,6 @@ void updateDisplay(int oil, int coolant, int speed, float volt, float km) {
   }
   // VŠE OSTATNÍ (Hystereze pro návrat do šedé)
   else {
-    // Hystereze: Pokud klesáme nebo stoupáme z oranžové zóny, 
-    // barva se vrátí do šedé až s odstupem 2 km/h
     bool inHysteresis = (speed >= 52 && speed <= 62) || 
                         (speed >= 92 && speed <= 102) || 
                         (speed >= 132 && speed <= 142);
@@ -280,7 +275,6 @@ void updateDisplay(int oil, int coolant, int speed, float volt, float km) {
   tft.setTextColor(lastSpeedColor, TFT_BLACK);
   tft.drawString(String((int)speed), xPos, 75, 4);
 
-
   // ===== 4. ŘÁDEK: UJETO =====
   tft.setTextPadding(140); 
   tft.setTextColor(TFT_SKODAGREY, TFT_BLACK);
@@ -291,7 +285,3 @@ void updateDisplay(int oil, int coolant, int speed, float volt, float km) {
   }
 
 }
-
-
-
-
