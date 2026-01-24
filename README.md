@@ -42,6 +42,7 @@ Pro zprovoznění systému budete potřebovat následující komponenty:
 ### Výchozí nastavení (`settings.h`)
 V konfiguračním souboru lze upravit tyto parametry:
 - `BT_NAME = "V-LINK";` – Název BT modulu, ke kterému se ESP32 připojuje.
+- `uint8_t BT_MAC[6] = {0x10, 0x21, 0x3E, 0x46, 0x6D, 0x4B};` – MAC adresa BT modulu, ke kterému se ESP32 připojuje (alternativa).
 - `BACKLIGHT_BRIGHTNESS = BRIGHTNESS_LOW;` – Jas spořiče displeje (25 %).
 
 ---
